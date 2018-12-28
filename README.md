@@ -2,30 +2,24 @@
 [DPlayer](https://github.com/DIYgod/DPlayer) for typecho
 
 ### 使用方式
-下载后将文件夹名改为DPlayer上传启用即可
 
-默认不自动播放，弹幕开启
-```
-[dplayer url="http://xxx.com/xxx.mp4" pic="http://xxx.com/xxx.jpg"/]
-```
 
-关闭弹幕
-```
-[dplayer url="http://xxx.com/xxx.mp4" pic="http://xxx.com/xxx.jpg" danmu="false"/]
-```
+PJAX 回调函数
 
-开启自动播放
+```javascript
+            if ('undefined' == typeof(dPlayerOptions) || 'undefined' == typeof(dPlayers)) {
+                return;
+            }
+            var len = dPlayerOptions.length;
+            for(var i=0;i<len;i++){
+                dPlayers[i] = new DPlayer({
+                    element: document.getElementById('player' + dPlayerOptions[i]['id']),
+                    screenshot: false,
+                    autoplay: dPlayerOptions[i]['autoplay'],
+                    video: dPlayerOptions[i]['video'],
+                    theme: dPlayerOptions[i]['theme'],
+                    danmaku: dPlayerOptions[i]['danmaku'],
+                });
+                // dPlayers[i].init();
+            }
 ```
-[dplayer url="http://xxx.com/xxx.mp4" pic="http://xxx.com/xxx.jpg" autoplay="true"/]
-```
-
-添加额外弹幕源(例：bilibili弹幕)
-```
-[dplayer url="http://xxx.com/xxx.mp4" pic="http://xxx.com/xxx.jpg" autoplay="true" addition="https://api.prprpr.me/dplayer/bilibili?aid=7286894"/]
-```
-
-### 设置截图
-![](https://raw.githubusercontent.com/volio/DPlayer-for-typecho/master/assets/screenshot.png)
-
-### LICENSE
-MIT © [Volio](https://niconiconi.org)
